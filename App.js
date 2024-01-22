@@ -1,20 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Home from './Screens/home';
+import Navigator from './routes/drawer';
+import { useFonts } from 'expo-font';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [fontsLoaded] = useFonts({
+    'nunito-regular': require('./assets/fonts/Nunito-Regular.ttf'),
+    'nunito-bold': require('./assets/fonts/Nunito-Bold.ttf')
+  });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  if (!fontsLoaded) {
+    return (
+      <View>
+        <Text>Loading fonts...</Text>
+      </View>
+    );
+  } else {
+    return (
+      <Navigator />
+    );
+  }
+}
